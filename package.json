@@ -1,0 +1,23 @@
+{
+  "name": "homework-week-5",
+  "version": "1.0.0",
+  "description": "This assignment is made up of two sections. The sections can be completed in _any_ order. If you get stuck on one section, take a break and try another. Complete as many steps from each section as you can. _Note: Codaisseur uses the results of this homework assignment for a formal evaluation. You must write all of the code yourself. No collaboration or external help is allowed. **Plagiarism is a violation of the Academy contract and is not in your best interest. Do not discuss the contents of the assignment with your fellow students.**_",
+  "main": "messages-api.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/charliegabriella/homework-week-5.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/charliegabriella/homework-week-5/issues"
+  },
+  "homepage": "https://github.com/charliegabriella/homework-week-5#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  }
+}
