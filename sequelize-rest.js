@@ -23,9 +23,9 @@ const Movie = db.define("movie", {
   }
 });
 
+//Use the model create() method to insert 3 rows of example data.
 db.sync().then(() =>
   Promise.all([
-    // //Use the model create() method to insert 3 rows of example data.
     Movie.create({
       title: "Harry Potter and the blablabla Stone",
       yearOfRelease: "2001",
@@ -55,11 +55,13 @@ app.post("/Movie", (req, res, next) => {
     .catch(error => next(error));
 });
 
-// read all movies (the collections resource)
+// read all movies (the collections resource) & pagination
 app.get("/Movie", (req, res, next) => {
-  Movie.findAll()
-    .then(movies => res.status(201).json(movies))
-    .catch(next); //add a catch callback (it will receive an error)
+  const limit = Math.min(req.query.limit || 25, 500);
+  const offset = req.query.offset || 0;
+  Movie.findAndCountAll({ limit, offset })
+    .then(result => res.send({ events: result.rows, total: result.count }))
+    .catch(error => next(error));
 });
 
 // read a single movie resource
@@ -68,7 +70,7 @@ app.get("/Movie/:id", (req, res, next) => {
     if (movie) {
       res.json(movie);
     } else {
-      res.status(404).end(); //8. Make sure that your handlers send back 404 status codes when appropriate.
+      res.status(404).end();
     }
   });
 });
@@ -84,7 +86,7 @@ app.put("/Movie/:id", (req, res, next) => {
       if (movie) {
         movie.update(req.body).then(movie => res.json(movie));
       } else {
-        res.status(404).end(); //8. Make sure that your handlers send back 404 status codes when appropriate.
+        res.status(404).end();
       }
     })
     .catch(next);
@@ -101,7 +103,7 @@ app.delete("/Movie/:id", (req, res, next) => {
       if (numDeleted) {
         res.status(204).end();
       } else {
-        res.status(404).end(); //8. Make sure that your handlers send back 404 status codes when appropriate.
+        res.status(404).end();
       }
     })
     .catch(next);
@@ -109,4 +111,5 @@ app.delete("/Movie/:id", (req, res, next) => {
 
 //checkcheckcheck
 app.listen(port, () => console.log("listening on port " + port));
+
 module.exports = Movie;
